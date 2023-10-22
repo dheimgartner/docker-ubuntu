@@ -1,21 +1,14 @@
 CONTAINER = sshubuntu
 
-.PHONY: install start attach stop ssh-connect rm
+default: help
+
+.PHONY: help install rm
+
+help:
+	bash ./scripts/help.sh
 
 install:
 	bash ./scripts/install.sh
-
-start:
-	docker start $(CONTAINER)
-
-attach:
-	docker exec -u sshuser -it $(CONTAINER) /bin/bash
-
-stop:
-	docker stop $(CONTAINER)
-
-ssh-connect:
-	ssh sshuser@localhost -p 2022
 
 rm:
 	docker rm $(CONTAINER)
