@@ -46,7 +46,7 @@ case "$1" in
         ssh_port_forward "$port"
         ;;
     *)
-        echo "Usage: $0 {start|attach|stop|connect}"
+        echo "Usage: $0 {start|attach|stop|connect|forward <port>}"
         exit 1
         ;;
 esac
