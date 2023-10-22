@@ -16,7 +16,12 @@ stop_container() {
 }
 
 ssh_connect() {
-    ssh "$USER"@localhost -p 2022
+    ssh "$USER"@sshubuntu -p 2022
+}
+
+ssh_port_forward() {
+    local port="$1"  # Get the port from the first argument
+    ssh -L "$port":localhost:"$port" "$USER"@sshubuntu -p 2022
 }
 
 case "$1" in
@@ -31,6 +36,14 @@ case "$1" in
         ;;
     "connect")
         ssh_connect
+        ;;
+    "forward")
+        if [ $# -ne 2 ]; then
+            echo "Usage: $0 forward <port>"
+            exit 1
+        fi
+        port="$2"
+        ssh_port_forward "$port"
         ;;
     *)
         echo "Usage: $0 {start|attach|stop|connect}"
